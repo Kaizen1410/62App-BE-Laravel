@@ -12,9 +12,28 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('admin')
+        User::insert([
+            [
+                'email' => 'amuhajir.syamlan@gmail.com',
+                'password' => bcrypt('password'),
+                'employee_id' => 1,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => 'luthfi@gmail.com',
+                'password' => bcrypt('password'),
+                'employee_id' => 2,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => 'vickry@gmail.com',
+                'password' => bcrypt('password'),
+                'employee_id' => 3,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
         ]);
     }
 }

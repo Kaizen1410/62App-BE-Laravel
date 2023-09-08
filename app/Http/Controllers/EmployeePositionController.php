@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
+use App\Models\EmployeePosition;
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller {
+class EmployeePositionController extends Controller {
     /**
      * Display a listing of the resource.
      */
@@ -14,9 +14,9 @@ class EmployeeController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $employees = Employee::where('name', 'like', '%' . $search . '%' )->orderBy($sort, $direction)->paginate(10);
+        $employeePositions = EmployeePosition::where('name', 'like', '%' . $search . '%' )->orderBy($sort, $direction)->paginate(10);
 
-        return response()->json($employees);
+        return response()->json($employeePositions);
     }
 
     /**
@@ -29,21 +29,21 @@ class EmployeeController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(Employee $employee) {
+    public function show(EmployeePosition $employeePosition) {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee) {
+    public function update(Request $request, EmployeePosition $employeePosition) {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee $employee) {
+    public function destroy(EmployeePosition $employeePosition) {
         //
     }
 }

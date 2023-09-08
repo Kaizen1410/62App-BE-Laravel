@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeePositionController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/auth/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->get('/auth/logout', [AuthController::class, 'logout']);
-Route::middleware('auth:sanctum')->get('/auth/user', [AuthController::class, 'user']);
+Route::prefix('/auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::middleware('auth:sanctum')->get('/logout', [AuthController::class, 'logout']);
+    Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'user']);
+});
+
+Route::resource('/employees', EmployeeController::class);
+Route::resource('/employee-positions', EmployeePositionController::class);
+Route::resource('/roles', RoleController::class);
+Route::resource('/leaves', LeaveController::class);

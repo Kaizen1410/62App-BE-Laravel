@@ -33,17 +33,6 @@ Start the server
 
 ## API Reference
 
-#### Register
-
-```
-  POST /api/auth/register
-```
-
-| Body | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `email` | `string` | **Required** |
-| `password` | `string` | **Required** |
-
 #### Login
 
 ```
