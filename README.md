@@ -5,7 +5,7 @@
 
 #### Register
 
-```http
+```
   POST /api/auth/register
 ```
 
@@ -16,7 +16,7 @@
 
 #### Login
 
-```http
+```
   POST /api/auth/login
 ```
 
@@ -27,13 +27,13 @@
 
 #### Logout
 
-```http
+```
   GET /api/auth/logout
 ```
 
 #### Get Current Login User
 
-```http
+```
   GET /api/auth/user
 ```
 
