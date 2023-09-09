@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmployeePosition;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmployeePositionController extends Controller {
     /**
@@ -23,27 +24,49 @@ class EmployeePositionController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:30|unique:employee_positions,name',
+        ]);
+
+        $employeePosition = EmployeePosition::create($validated);
+
+        return response()->json(['data' => $employeePosition], 201);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(EmployeePosition $employeePosition) {
-        //
+        return response()->json(['data' => $employeePosition]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EmployeePosition $employeePosition) {
-        //
+    public function update(Request $request, string $id) {
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'max:30',
+                Rule::unique('employee_positions', 'name')->ignore($id),
+            ]
+        ]);
+
+        EmployeePosition::where('id', $id)->update($validated);
+        $employeePosition = EmployeePosition::find($id);
+
+        return response()->json([
+            'message' => 'Updated',
+            'data' => $employeePosition
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(EmployeePosition $employeePosition) {
-        //
+        $employeePosition->delete();
+
+        return response()->json(['message' => 'Deleted']);
     }
 }

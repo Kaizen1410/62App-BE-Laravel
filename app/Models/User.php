@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,8 +44,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function Employee(): HasOne {
-        return $this->hasOne(Employee::class);
+    public function employee(): BelongsTo {
+        return $this->belongsTo(Employee::class);
     }
 
     public function roles(): BelongsToMany {

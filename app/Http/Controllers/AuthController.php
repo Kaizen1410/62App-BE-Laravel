@@ -14,7 +14,7 @@ class AuthController extends Controller {
             ], 401);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::with('employee')->where('email', $request->email)->first();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -30,6 +30,7 @@ class AuthController extends Controller {
     }
 
     function user(Request $request) {
-        return response()->json($request->user());
+        $user = User::with('employee')->find($request->user()->id);
+        return response()->json(['data' => $user]);
     }
 }

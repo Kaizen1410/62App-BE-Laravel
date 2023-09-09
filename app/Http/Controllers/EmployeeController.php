@@ -14,7 +14,7 @@ class EmployeeController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $employees = Employee::where('name', 'like', '%' . $search . '%' )->orderBy($sort, $direction)->paginate(10);
+        $employees = Employee::with('employeePosition')->where('name', 'like', '%' . $search . '%' )->orderBy($sort, $direction)->paginate(10);
 
         return response()->json($employees);
     }
@@ -23,27 +23,48 @@ class EmployeeController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:30',
+            'employee_position_id' => 'required|exists:employee_positions,id'
+        ]);
+
+        $employee = Employee::create($validated);
+
+        return response()->json(['data' => $employee], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Employee $employee) {
-        //
+    public function show(string $id) {
+        $employee = Employee::with('employeePosition')->find($id);
+        return response()->json(['data' => $employee]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee) {
-        //
+    public function update(Request $request, string $id) {
+        $validated = $request->validate([
+            'name' => 'required|max:30',
+            'employee_position_id' => 'required|exists:employee_positions,id'
+        ]);
+
+        Employee::where('id', $id)->update($validated);
+        $employee = Employee::with('employeePosition')->find($id);
+
+        return response()->json([
+            'message' => 'Updated',
+            'data' => $employee
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Employee $employee) {
-        //
+        $employee->delete();
+
+        return response()->json(['message' => 'Deleted']);
     }
 }
