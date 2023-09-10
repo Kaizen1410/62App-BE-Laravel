@@ -22,6 +22,6 @@ class Leave extends Model
     }
     
     public function approvedBy(): BelongsTo {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'approved_by');
     }
 }

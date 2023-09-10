@@ -15,7 +15,9 @@ class EmployeePositionController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $employeePositions = EmployeePosition::where('name', 'like', '%' . $search . '%' )->orderBy($sort, $direction)->paginate(10);
+        $employeePositions = EmployeePosition::where('name', 'like', '%' . $search . '%' )
+            ->orderBy($sort, $direction)
+            ->paginate(10);
 
         return response()->json($employeePositions);
     }
@@ -55,18 +57,15 @@ class EmployeePositionController extends Controller {
         EmployeePosition::where('id', $id)->update($validated);
         $employeePosition = EmployeePosition::find($id);
 
-        return response()->json([
-            'message' => 'Updated',
-            'data' => $employeePosition
-        ]);
+        return response()->json(['data' => $employeePosition]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeePosition $employeePosition) {
-        $employeePosition->delete();
+    public function destroy(string $id) {
+        $deleted = EmployeePosition::where('id', $id)->delete();
 
-        return response()->json(['message' => 'Deleted']);
+        return response()->json(['deleted' => $deleted]);
     }
 }

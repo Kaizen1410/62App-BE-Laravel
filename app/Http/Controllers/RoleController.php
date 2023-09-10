@@ -15,7 +15,9 @@ class RoleController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $roles = Role::where('name', 'like', '%' . $search . '%' )->orderBy($sort, $direction)->paginate(10);
+        $roles = Role::withCount('users')->where('name', 'like', '%' . $search . '%' )
+            ->orderBy($sort, $direction)
+            ->paginate(10);
 
         return response()->json($roles);
     }
@@ -55,18 +57,15 @@ class RoleController extends Controller {
         Role::where('id', $id)->update($validated);
         $role = Role::find($id);
 
-        return response()->json([
-            'message' => 'Updated',
-            'data' => $role
-        ]);
+        return response()->json(['data' => $role]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role) {
-        $role->delete();
+    public function destroy(string $id) {
+        $deleted = Role::where('id', $id)->delete();
 
-        return response()->json(['message' => 'Deleted']);
+        return response()->json(['deleted' => $deleted]);
     }
 }
