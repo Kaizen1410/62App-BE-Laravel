@@ -32,7 +32,7 @@ class EmployeePositionController extends Controller {
 
         $employeePosition = EmployeePosition::create($validated);
 
-        return response()->json(['data' => $employeePosition], 201);
+        return response()->json(['data' => $employeePosition, 'message' => 'Employee Position Added'], 201);
     }
 
     /**
