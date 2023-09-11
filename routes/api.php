@@ -25,10 +25,10 @@ Route::prefix('/auth')->group(function () {
     Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'user']);
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::resource('/employees', EmployeeController::class);
-    Route::resource('/employee-positions', EmployeePositionController::class);
-    Route::resource('/roles', RoleController::class);
-    Route::resource('/user-roles', UserRoleController::class);
-    Route::resource('/leaves', LeaveController::class, ['parameters' => ['leaves' => 'leave']]);
-});
+Route::resource('/employees', EmployeeController::class);
+Route::resource('/employee-positions', EmployeePositionController::class);
+Route::resource('/roles', RoleController::class);
+Route::resource('/user-roles', UserRoleController::class);
+Route::resource('/leaves', LeaveController::class, ['parameters' => ['leaves' => 'leave']]);
+// Route::middleware(['auth:sanctum'])->group(function () {
+// });
