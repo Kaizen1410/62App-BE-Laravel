@@ -32,7 +32,7 @@ class RoleController extends Controller {
 
         $role = Role::create($validated);
 
-        return response()->json(['data' => $role], 201);
+        return response()->json(['data' => $role,  'message' => 'Role Added'], 201);
     }
 
     /**
@@ -57,7 +57,7 @@ class RoleController extends Controller {
         Role::where('id', $id)->update($validated);
         $role = Role::find($id);
 
-        return response()->json(['data' => $role]);
+        return response()->json(['data' => $role,  'message' => 'Role Updated']);
     }
 
     /**
@@ -66,6 +66,6 @@ class RoleController extends Controller {
     public function destroy(string $id) {
         $deleted = Role::where('id', $id)->delete();
 
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['deleted' => $deleted,  'message' => 'Role Deleted']);
     }
 }

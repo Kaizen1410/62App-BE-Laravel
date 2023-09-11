@@ -57,7 +57,7 @@ class EmployeePositionController extends Controller {
         EmployeePosition::where('id', $id)->update($validated);
         $employeePosition = EmployeePosition::find($id);
 
-        return response()->json(['data' => $employeePosition]);
+        return response()->json(['data' => $employeePosition,  'message' => 'Employee Position Edited']);
     }
 
     /**
@@ -66,6 +66,6 @@ class EmployeePositionController extends Controller {
     public function destroy(string $id) {
         $deleted = EmployeePosition::where('id', $id)->delete();
 
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['deleted' => $deleted,  'message' => 'Employee Position Deleted']);
     }
 }

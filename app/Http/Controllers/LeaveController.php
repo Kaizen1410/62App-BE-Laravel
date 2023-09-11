@@ -33,7 +33,7 @@ class LeaveController extends Controller {
         ]);
 
         $leave = Leave::create($validated);
-        return response()->json(['data' => $leave], 201);
+        return response()->json(['data' => $leave,  'message' => 'Leave Added'], 201);
     }
 
     /**
@@ -58,7 +58,7 @@ class LeaveController extends Controller {
         Leave::where('id', $id)->update($validated);
         $leave = Leave::with(['employee', 'approvedBy'])->find($id);
 
-        return response()->json(['data' => $leave]);
+        return response()->json(['data' => $leave,  'message' => 'Leave Edited']);
     }
 
     /**
@@ -67,6 +67,6 @@ class LeaveController extends Controller {
     public function destroy(string $id) {
         $deleted = Leave::where('id', $id)->delete();
 
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['deleted' => $deleted,  'message' => 'Leave Deleted']);
     }
 }

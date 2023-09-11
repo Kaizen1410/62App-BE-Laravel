@@ -44,7 +44,7 @@ class UserRoleController extends Controller {
 
         $data = UserRole::create($validated);
 
-        return response()->json(['data' => $data], 201);
+        return response()->json(['data' => $data,  'message' => 'User Role Added'], 201);
     }
 
     /**
@@ -67,6 +67,6 @@ class UserRoleController extends Controller {
      */
     public function destroy(string $id) {
         $deleted = UserRole::where('id', $id)->delete();
-        return response()->json(['deleted' => $deleted]);
+        return response()->json(['deleted' => $deleted,  'message' => 'User Role Deleted']);
     }
 }
