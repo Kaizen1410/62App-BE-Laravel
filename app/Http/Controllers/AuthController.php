@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller {
     function login(Request $request) {
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'message' => 'Bad Credentials'
-            ], 401);
-        }
+        // if (!Auth::attempt($request->only('email', 'password'))) {
+        //     return response()->json([
+        //         'message' => 'Bad Credentials'
+        //     ], 401);
+        // }
 
         $user = User::with('employee')->where('email', $request->email)->first();
 
