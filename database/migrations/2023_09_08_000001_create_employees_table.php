@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_position_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('employee_position_id')->references('id')->on('employee_positions')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('employee_position_id')->references('id')->on('employee_positions')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
