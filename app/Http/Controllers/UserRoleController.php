@@ -16,12 +16,12 @@ class UserRoleController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'email';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $userRoles = User::with('roles')
+        $userRoles = User::with(['roles', 'employee'])
             ->where('email', 'like', '%' . $search .'%' )
             ->orderBy($sort, $direction)
             ->paginate(10);
 
-        return response()->json(['data' => $userRoles]);
+        return response()->json($userRoles);
     }
 
     /**
