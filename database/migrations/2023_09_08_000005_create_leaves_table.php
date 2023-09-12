@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('employee_id')->references('id')->on('employees');
-            $table->foreign('approved_by')->references('id')->on('employees');
+            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('approved_by')->references('id')->on('employees')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

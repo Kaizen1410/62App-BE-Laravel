@@ -16,9 +16,28 @@ class LeaveSeeder extends Seeder
         Leave::insert([
             [
                 'employee_id' => 2,
-                'date_leave' => '2023-09-11',
+                'date_leave' => fake()->date(),
                 'is_approved' => false,
-            ]
-            ]);
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 1,
+                'date_leave' => fake()->date(),
+                'is_approved' => false,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 3,
+                'date_leave' => fake()->date(),
+                'is_approved' => true,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 1,
+                'date_leave' => fake()->date(),
+                'is_approved' => true,
+                'approved_by' => 1,
+            ],
+        ]);
     }
 }
