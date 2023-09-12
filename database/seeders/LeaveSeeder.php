@@ -38,6 +38,54 @@ class LeaveSeeder extends Seeder
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
+            [
+                'employee_id' => 2,
+                'date_leave' => fake()->date(),
+                'is_approved' => false,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 1,
+                'date_leave' => fake()->date(),
+                'is_approved' => false,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 3,
+                'date_leave' => fake()->date(),
+                'is_approved' => true,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 1,
+                'date_leave' => fake()->date(),
+                'is_approved' => true,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 2,
+                'date_leave' => fake()->date(),
+                'is_approved' => false,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 1,
+                'date_leave' => fake()->date(),
+                'is_approved' => false,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 3,
+                'date_leave' => fake()->date(),
+                'is_approved' => true,
+                'approved_by' => 1,
+            ],
+            [
+                'employee_id' => 1,
+                'date_leave' => fake()->date(),
+                'is_approved' => true,
+                'approved_by' => 1,
+            ],
         ]);
     }
 }

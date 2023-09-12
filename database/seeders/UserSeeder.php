@@ -34,6 +34,62 @@ class UserSeeder extends Seeder
                 'updated_at' => fake()->dateTime(),
                 'created_at' => fake()->dateTime(),
             ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 4,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 5,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 6,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 7,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 8,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 9,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 10,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'email' => fake()->email(),
+                'password' => bcrypt('password'),
+                'employee_id' => 11,
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
         ]);
     }
 }

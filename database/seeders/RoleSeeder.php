@@ -24,6 +24,51 @@ class RoleSeeder extends Seeder
                 'updated_at' => fake()->dateTime(),
                 'created_at' => fake()->dateTime(),
             ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => fake()->sentence(2),
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
         ]);
     }
 }

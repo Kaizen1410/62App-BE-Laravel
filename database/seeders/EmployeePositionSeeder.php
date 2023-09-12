@@ -54,6 +54,21 @@ class EmployeePositionSeeder extends Seeder
                 'updated_at' => fake()->dateTime(),
                 'created_at' => fake()->dateTime(),
             ],
+            [
+                'name' => 'Junior Business Analytic',
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => 'Senior Business Analytic',
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
+            [
+                'name' => 'CEO',
+                'updated_at' => fake()->dateTime(),
+                'created_at' => fake()->dateTime(),
+            ],
         ]);
     }
 }
