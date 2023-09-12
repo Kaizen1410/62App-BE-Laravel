@@ -33,25 +33,17 @@ class UserRoleController extends Controller {
             'role_id' => 'required|exists:roles,id',
         ]);
 
-        $userRoles = UserRole::where('user_id', $validated['user_id'])->get();
+        $user = User::find($validated['user_id']);
+        $user->roles()->sync([$validated['role_id']], false);
 
-        // Check if the user already has the role
-        foreach ($userRoles as $value) {
-            if($value->role_id === $validated['role_id']) {
-                return response()->json(['message' => 'User already have the role'], 400);
-            }
-        }
-
-        $data = UserRole::create($validated);
-
-        return response()->json(['data' => $data,  'message' => 'User Role Added'], 201);
+        return response()->json(['message' => 'User Role Added'], 201);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id) {
-        $userRole = User::with('roles')->find($id);
+        $userRole = User::with(['roles', 'employee'])->find($id);
 
         return response()->json(['data' => $userRole]);
     }
@@ -60,13 +52,19 @@ class UserRoleController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id) {
+        $validated = $request->validate([
+            'role_id.*' => 'required|exists:roles,id',
+        ]);
+
+        $user = User::find($id);
+        $user->roles()->sync($validated['role_id']);
+
+        return response()->json(['data' => $request->all()]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id) {
-        $deleted = UserRole::where('id', $id)->delete();
-        return response()->json(['deleted' => $deleted,  'message' => 'User Role Deleted']);
     }
 }

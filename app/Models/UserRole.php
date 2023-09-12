@@ -9,8 +9,8 @@ class UserRole extends Model
 {
     use HasFactory;
 
-    // protected $primaryKey = null;
-    // public $incrementing = false;
+    protected $primaryKey = null;
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
