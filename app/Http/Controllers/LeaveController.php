@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LeaveImport;
 use App\Models\Leave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LeaveController extends Controller {
     /**
@@ -85,5 +87,15 @@ class LeaveController extends Controller {
         ->get();
 
         return response()->json(['data' => $summary]);
+    }
+
+    public function import(Request $request) {
+        $request->validate([
+            'csv' => 'required|mimes:csv'
+        ]);
+
+        Excel::import(new LeaveImport, $request->file('csv'));
+
+        return response()->json(['message' => 'Leave Added', 'data' => $request->file('csv')->getClientOriginalName()]);
     }
 }
