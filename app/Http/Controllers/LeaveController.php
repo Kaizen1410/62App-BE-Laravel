@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Leave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LeaveController extends Controller {
     /**
@@ -72,11 +73,16 @@ class LeaveController extends Controller {
     }
 
     public function summary(string $year) {
-        $summary = Leave::whereYear('date_leave', $year)
-            ->get()
-            ->groupBy(function($val) {
-                return Carbon::parse($val->date_leave)->format('m');
-            });
+        // $summary = Leave::whereYear('date_leave', $year)
+        //     ->get()
+        //     ->groupBy(function($val) {
+        //         return Carbon::parse($val->date_leave)->format('m');
+        //     });
+
+        $summary = Leave::whereYear('date_leave', $year)->selectRaw('month(date_leave) month, monthname(date_leave) monthname, count(*) data_count')
+        ->groupBy('month', 'monthname')
+        ->orderBy('month', 'asc')
+        ->get();
 
         return response()->json(['data' => $summary]);
     }
