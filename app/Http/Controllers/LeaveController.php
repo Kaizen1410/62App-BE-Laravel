@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Leave;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LeaveController extends Controller {
@@ -68,5 +69,15 @@ class LeaveController extends Controller {
         $deleted = Leave::where('id', $id)->delete();
 
         return response()->json(['deleted' => $deleted,  'message' => 'Leave Deleted']);
+    }
+
+    public function summary(string $year) {
+        $summary = Leave::whereYear('date_leave', $year)
+            ->get()
+            ->groupBy(function($val) {
+                return Carbon::parse($val->date_leave)->format('m');
+            });
+
+        return response()->json(['data' => $summary]);
     }
 }
