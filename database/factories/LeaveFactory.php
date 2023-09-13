@@ -21,7 +21,7 @@ class LeaveFactory extends Factory
 
         return [
             'employee_id' => fake()->randomElement($userIds),
-            'date_leave' => fake()->dateTimeBetween('now', '+2 years'),
+            'date_leave' => fake()->dateTimeBetween('-2 years', 'now'),
             'is_approved' => false,
             'approved_by' => null,
         ];
