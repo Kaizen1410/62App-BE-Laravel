@@ -74,19 +74,28 @@ class LeaveController extends Controller {
         return response()->json(['deleted' => $deleted,  'message' => 'Leave Deleted']);
     }
 
-    public function summary(string $year) {
-        // $summary = Leave::whereYear('date_leave', $year)
-        //     ->get()
-        //     ->groupBy(function($val) {
-        //         return Carbon::parse($val->date_leave)->format('m');
-        //     });
-
-        $summary = Leave::whereYear('date_leave', $year)->selectRaw('month(date_leave) month, monthname(date_leave) monthname, count(*) data_count')
+    public function leaves_year(string $year) {
+        $data = Leave::whereYear('date_leave', $year)->selectRaw('month(date_leave) month, monthname(date_leave) monthname, count(*) data_count')
         ->groupBy('month', 'monthname')
         ->orderBy('month', 'asc')
         ->get();
 
-        return response()->json(['data' => $summary]);
+        return response()->json(['data' => $data]);
+    }
+
+    public function calendar() {
+        // $year = explode('-', $date)[0];
+        // $month = explode('-', $date)[1];
+
+        // $data = Leave::with(['employee' => fn ($q) =>  $q->select(['id', 'name'])])
+        //     ->whereYear('date_leave', $year)
+        //     ->whereMonth('date_leave', $month)
+        //     ->get();
+        $data = Leave::with(['employee' => fn ($q) =>  $q->select(['id', 'name'])])
+            ->select(['id', 'date_leave', 'employee_id'])
+            ->get();
+
+        return response()->json(['data' => $data]);
     }
 
     public function import(Request $request) {

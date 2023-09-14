@@ -30,7 +30,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('/employee-positions', EmployeePositionController::class);
     Route::resource('/roles', RoleController::class);
     Route::resource('/user-roles', UserRoleController::class);
-    Route::get('/leaves/summary/{year}', [LeaveController::class, 'summary']);
+    Route::get('/leaves/year/{year}', [LeaveController::class, 'leaves_year']);
+    Route::get('/leaves/calendar', [LeaveController::class, 'calendar']);
     Route::post('/leaves/import', [LeaveController::class, 'import']);
     Route::resource('/leaves', LeaveController::class);
 });
