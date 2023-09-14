@@ -15,11 +15,12 @@ class LeaveController extends Controller {
      */
     public function index(Request $request) {
         $search = $request->query('search') ? $request->query('search') : '';
+        $sort = $request->query('sort') ? $request->query('sort') : 'date_leave';
         $direction = $request->query('direction') ? $request->query('direction') : 'desc';
 
         $leaves = Leave::with(['employee', 'approvedBy'])
             ->whereHas('employee', fn ($q) => $q->where('name', 'like', '%' . $search . '%'))
-            ->orderBy('date_leave', $direction)
+            ->orderBy($sort, $direction)
             ->paginate(10);
 
         return response()->json($leaves);
