@@ -33,7 +33,6 @@ class LeaveController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        return response()->json(['data' => $request->all()], 201);
         $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'date_leave' => 'required|date',
@@ -89,13 +88,6 @@ class LeaveController extends Controller {
     }
 
     public function calendar() {
-        // $year = explode('-', $date)[0];
-        // $month = explode('-', $date)[1];
-
-        // $data = Leave::with(['employee' => fn ($q) =>  $q->select(['id', 'name'])])
-        //     ->whereYear('date_leave', $year)
-        //     ->whereMonth('date_leave', $month)
-        //     ->get();
         $data = Leave::with(['employee' => fn ($q) =>  $q->select(['id', 'name'])])
             ->select(['id', 'date_leave', 'employee_id'])
             ->get();
