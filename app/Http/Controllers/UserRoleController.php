@@ -59,7 +59,7 @@ class UserRoleController extends Controller {
         $user = User::find($id);
         $user->roles()->sync($validated['role_id']);
 
-        return response()->json(['data' => $request->all()]);
+        return response()->json(['message' => 'User Role Updated']);
     }
 
     /**
