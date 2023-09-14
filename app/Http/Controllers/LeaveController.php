@@ -18,9 +18,10 @@ class LeaveController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'date_leave';
         $direction = $request->query('direction') ? $request->query('direction') : 'desc';
 
-        $leaves = Leave::join('employees', 'leaves.employee_id', '=', 'employees.id')
-            ->join('employees as approved_by', 'leaves.approved_by', '=', 'approved_by.id')
+        $leaves = Leave::leftJoin('employees', 'leaves.employee_id', '=', 'employees.id')
+            ->leftJoin('employees as approved_by', 'leaves.approved_by', '=', 'approved_by.id')
             ->where('employees.name', 'like', '%' . $search . '%')
+            ->orWhereNull('employees.name')
             ->select('leaves.id', 'date_leave', 'employees.name as employee_name', 'is_approved', 'approved_by.name as approved_by')
             ->orderBy($sort, $direction)
             ->paginate(10);
@@ -32,6 +33,7 @@ class LeaveController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
+        return response()->json(['data' => $request->all()], 201);
         $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'date_leave' => 'required|date',
