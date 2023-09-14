@@ -18,8 +18,10 @@ class LeaveController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'date_leave';
         $direction = $request->query('direction') ? $request->query('direction') : 'desc';
 
-        $leaves = Leave::with(['employee', 'approvedBy'])
-            ->whereHas('employee', fn ($q) => $q->where('name', 'like', '%' . $search . '%'))
+        $leaves = Leave::join('employees', 'leaves.employee_id', '=', 'employees.id')
+            ->join('employees as approved_by', 'leaves.approved_by', '=', 'approved_by.id')
+            ->where('employees.name', 'like', '%' . $search . '%')
+            ->select('leaves.id', 'date_leave', 'employees.name as employee_name', 'is_approved', 'approved_by.name as approved_by')
             ->orderBy($sort, $direction)
             ->paginate(10);
 

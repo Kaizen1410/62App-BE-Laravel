@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class UserRoleController extends Controller {
     /**
@@ -16,8 +15,10 @@ class UserRoleController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'email';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $userRoles = User::with(['roles', 'employee'])
+        $userRoles = User::with(['roles'])
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
             ->where('email', 'like', '%' . $search .'%' )
+            ->select('users.id', 'email', 'employees.name')
             ->orderBy($sort, $direction)
             ->paginate(10);
 

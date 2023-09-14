@@ -14,8 +14,9 @@ class EmployeeController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $employees = Employee::with('employeePosition')
-            ->where('name', 'like', '%' . $search . '%')
+        $employees = Employee::join('employee_positions', 'employee_positions.id', '=', 'employees.employee_position_id')
+            ->where('employees.name', 'like', '%' . $search . '%')
+            ->select('employees.id', 'employees.name', 'employee_positions.name as employee_position')
             ->orderBy($sort, $direction)
             ->paginate(10);
 
