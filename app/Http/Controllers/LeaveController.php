@@ -17,6 +17,7 @@ class LeaveController extends Controller {
         $search = $request->query('search') ? $request->query('search') : '';
         $sort = $request->query('sort') ? $request->query('sort') : 'date_leave';
         $direction = $request->query('direction') ? $request->query('direction') : 'desc';
+        $per_page = $request->query('per_page') ? $request->query('per_page') : 10;
 
         $leaves = Leave::leftJoin('employees', 'leaves.employee_id', '=', 'employees.id')
             ->leftJoin('employees as approved_by', 'leaves.approved_by', '=', 'approved_by.id')
@@ -24,7 +25,7 @@ class LeaveController extends Controller {
             ->orWhereNull('employees.name')
             ->select('leaves.id', 'date_leave', 'employees.name as employee_name', 'is_approved', 'approved_by.name as approved_by')
             ->orderBy($sort, $direction)
-            ->paginate(10);
+            ->paginate($per_page);
 
         return response()->json($leaves);
     }

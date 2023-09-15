@@ -14,13 +14,14 @@ class UserRoleController extends Controller {
         $search = $request->query('search');
         $sort = $request->query('sort') ? $request->query('sort') : 'email';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
+        $per_page = $request->query('per_page') ? $request->query('per_page') : 10;
 
         $userRoles = User::with(['roles'])
             ->join('employees', 'employees.id', '=', 'users.employee_id')
             ->where('email', 'like', '%' . $search .'%' )
             ->select('users.id', 'email', 'employees.name')
             ->orderBy($sort, $direction)
-            ->paginate(10);
+            ->paginate($per_page);
 
         return response()->json($userRoles);
     }

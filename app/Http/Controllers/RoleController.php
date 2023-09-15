@@ -14,12 +14,13 @@ class RoleController extends Controller {
         $search = $request->query('search');
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
+        $per_page = $request->query('per_page') ? $request->query('per_page') : 10;
 
         $roles = Role::withCount('users')
             ->where('deleted_at', null)
             ->where('name', 'like', '%' . $search . '%' )
             ->orderBy($sort, $direction)
-            ->paginate(10);
+            ->paginate($per_page);
 
         return response()->json($roles);
     }

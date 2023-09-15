@@ -13,13 +13,14 @@ class EmployeeController extends Controller {
         $search = $request->query('search');
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
+        $per_page = $request->query('per_page') ? $request->query('per_page') : 10;
 
         $employees = Employee::join('employee_positions', 'employee_positions.id', '=', 'employees.employee_position_id')
             ->where('employees.deleted_at', null)
             ->where('employees.name', 'like', '%' . $search . '%')
             ->select(['employees.id', 'employees.name', 'employee_positions.name as employee_position', 'employees.updated_at', 'employees.created_at'])
             ->orderBy($sort, $direction)
-            ->paginate(10);
+            ->paginate($per_page);
 
         return response()->json($employees);
     }
