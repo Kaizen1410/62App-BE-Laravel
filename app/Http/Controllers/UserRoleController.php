@@ -53,12 +53,12 @@ class UserRoleController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id) {
-        $validated = $request->validate([
-            'role_id.*' => 'required|exists:roles,id',
+        $request->validate([
+            'role_id.*' => 'exists:roles,id',
         ]);
 
         $user = User::find($id);
-        $user->roles()->sync($validated['role_id']);
+        $user->roles()->sync($request->role_id);
 
         return response()->json(['message' => 'User Role Updated']);
     }
