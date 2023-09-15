@@ -15,7 +15,9 @@ class RoleController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $roles = Role::withCount('users')->where('name', 'like', '%' . $search . '%' )
+        $roles = Role::withCount('users')
+            ->where('deleted_at', null)
+            ->where('name', 'like', '%' . $search . '%' )
             ->orderBy($sort, $direction)
             ->paginate(10);
 
@@ -64,7 +66,7 @@ class RoleController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(string $id) {
-        $deleted = Role::where('id', $id)->delete();
+        $deleted = Role::where('id', $id)->update(['deleted_at' => date('Y-m-d H:i:s')]);
 
         return response()->json(['deleted' => $deleted,  'message' => 'Role Deleted']);
     }

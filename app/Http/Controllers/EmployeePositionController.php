@@ -15,8 +15,10 @@ class EmployeePositionController extends Controller {
         $sort = $request->query('sort') ? $request->query('sort') : 'name';
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
 
-        $employeePositions = EmployeePosition::where('name', 'like', '%' . $search . '%' )
+        $employeePositions = EmployeePosition::where('deleted_at', null)
+            ->where('name', 'like', '%' . $search . '%' )
             ->orderBy($sort, $direction)
+            // ->select(['id', 'name'])
             ->paginate(10);
 
         return response()->json($employeePositions);
@@ -64,7 +66,7 @@ class EmployeePositionController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(string $id) {
-        $deleted = EmployeePosition::where('id', $id)->delete();
+        $deleted = EmployeePosition::where('id', $id)->update(['deleted_at' => date('Y-m-d H:i:s')]);
 
         return response()->json(['deleted' => $deleted,  'message' => 'Employee Position Deleted']);
     }

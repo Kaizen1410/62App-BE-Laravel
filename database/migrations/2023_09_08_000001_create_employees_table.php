@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('employee_position_id')->nullable();
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
 
             $table->foreign('employee_position_id')->references('id')->on('employee_positions')->onUpdate('cascade')->onDelete('set null');
         });
