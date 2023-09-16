@@ -14,7 +14,12 @@ class Employee extends Model
 
     protected $fillable = [
         'name',
-        'employee_position_id'
+        'employee_position_id',
+        'deleted_at'
+    ];
+
+    protected $hidden = [
+        'deleted_at'
     ];
 
     public function user(): HasOne {

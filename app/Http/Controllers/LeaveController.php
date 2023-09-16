@@ -23,7 +23,7 @@ class LeaveController extends Controller {
             ->leftJoin('employees as approved_by', 'leaves.approved_by', '=', 'approved_by.id')
             ->where('employees.name', 'like', '%' . $search . '%')
             ->orWhereNull('employees.name')
-            ->select('leaves.id', 'date_leave', 'employees.name as employee_name', 'is_approved', 'approved_by.name as approved_by')
+            ->select(['leaves.id', 'date_leave', 'employees.name as employee_name', 'is_approved', 'approved_by.name as approved_by', 'leaves.updated_at', 'leaves.created_at'])
             ->orderBy($sort, $direction)
             ->paginate($per_page);
 

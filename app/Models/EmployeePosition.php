@@ -11,7 +11,12 @@ class EmployeePosition extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'deleted_at'
+    ];
+
+    protected $hidden = [
+        'deleted_at'
     ];
 
     public function employees(): HasMany {

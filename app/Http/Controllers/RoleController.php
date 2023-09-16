@@ -29,11 +29,18 @@ class RoleController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
+        $checkRole = Role::where('name', $request->name)->where('deleted_at', '!=', null)->first();
+
         $validated = $request->validate([
-            'name' => 'required|max:30|unique:roles,name',
+            'name' => 'required|max:30' . ($checkRole ? '' : '|unique:roles,name'),
         ]);
 
-        $role = Role::create($validated);
+        if($checkRole) {
+            $checkRole->update(['deleted_at' => null]);
+            $role = $checkRole;
+        } else {
+            $role = Role::create($validated);
+        }
 
         return response()->json(['data' => $role,  'message' => 'Role Added'], 201);
     }

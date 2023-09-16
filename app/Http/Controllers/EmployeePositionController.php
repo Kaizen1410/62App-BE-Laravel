@@ -28,11 +28,18 @@ class EmployeePositionController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
+        $checkPosition = EmployeePosition::where('name', $request->name)->where('deleted_at', '!=', null)->first();
+
         $validated = $request->validate([
-            'name' => 'required|max:30|unique:employee_positions,name',
+            'name' => 'required|max:30' . ($checkPosition ? '' : '|unique:employee_positions,name'),
         ]);
 
-        $employeePosition = EmployeePosition::create($validated);
+        if($checkPosition) {
+            $checkPosition->update(['deleted_at' => null]);
+            $employeePosition = $checkPosition;
+        } else {
+            $employeePosition = EmployeePosition::create($validated);
+        }
 
         return response()->json(['data' => $employeePosition, 'message' => 'Employee Position Added'], 201);
     }
