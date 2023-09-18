@@ -18,7 +18,7 @@ class ProjectEmployeeController extends Controller {
         $projectEmployees = ProjectEmployee::leftJoin('employees', 'employees.id', '=', 'employee_id')
             ->leftJoin('projects', 'projects.id', '=', 'project_id')
             ->where('employees.name', 'like', '%' . $search . '%' )
-            ->select(['employees.name as employee_name', 'projects.name as project_name', 'project_employees.start_date', 'project_employees.end_date', 'project_employees.status', 'project_employees.updated_at', 'project_employees.created_at'])
+            ->select(['project_employees.id', 'employees.name as employee_name', 'projects.name as project_name', 'project_employees.start_date', 'project_employees.end_date', 'project_employees.status', 'project_employees.updated_at', 'project_employees.created_at'])
             ->orderBy($sort, $direction)
             ->paginate($per_page);
 
@@ -45,21 +45,28 @@ class ProjectEmployeeController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(ProjectEmployee $projectEmployee) {
-        //
+    public function show(string $id) {
+        $projectEmployee = ProjectEmployee::with(['employee', 'project'])->find($id);
+
+        return response()->json(['data' => $projectEmployee]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProjectEmployee $projectEmployee) {
-        $request->validate([
+    public function update(Request $request, string $id) {
+        $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'project_id' => 'required|exists:projects,id',
             'start_date' => 'date',
             'end_date' => 'date',
             'status' => 'required|integer|min:1|max:2'
         ]);
+
+        ProjectEmployee::where('id', $id)->update($validated);
+        $projectEmployee = ProjectEmployee::find($id);
+
+        return response()->json(['data' => $projectEmployee, 'message' => 'Project Employee Updated']);
     }
 
     /**
