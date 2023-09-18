@@ -31,55 +31,7 @@ class EmployeeSeeder extends Seeder
                 'employee_position_id' => 1,
                 'updated_at' => fake()->dateTime(),
                 'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 2,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 3,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 4,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 5,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 6,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 7,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 8,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
-            [
-                'name' => fake()->name(),
-                'employee_position_id' => 9,
-                'updated_at' => fake()->dateTime(),
-                'created_at' => fake()->dateTime(),
-            ],
+            ]
         ]);
     }
 }

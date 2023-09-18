@@ -16,42 +16,42 @@ class LeaveSeeder extends Seeder
         Leave::insert([
             [
                 'employee_id' => 3,
-                'date_leave' => fake()->date(),
+                'date_leave' => fake()->dateTimeBetween('-1 years', 'now'),
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
             [
                 'employee_id' => 1,
-                'date_leave' => fake()->date(),
+                'date_leave' => fake()->dateTimeBetween('-1 years', 'now'),
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
             [
                 'employee_id' => 3,
-                'date_leave' => fake()->date(),
+                'date_leave' => fake()->dateTimeBetween('-1 years', 'now'),
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
             [
                 'employee_id' => 1,
-                'date_leave' => fake()->date(),
+                'date_leave' => fake()->dateTimeBetween('-1 years', 'now'),
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
             [
                 'employee_id' => 3,
-                'date_leave' => fake()->date(),
+                'date_leave' => fake()->dateTimeBetween('-1 years', 'now'),
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
             [
                 'employee_id' => 1,
-                'date_leave' => fake()->date(),
+                'date_leave' => fake()->dateTimeBetween('-1 years', 'now'),
                 'is_approved' => true,
                 'approved_by' => 1,
             ],
         ]);
 
-        Leave::factory(200)->create();
+        Leave::factory(100)->create();
     }
 }

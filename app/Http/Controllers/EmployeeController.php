@@ -31,8 +31,15 @@ class EmployeeController extends Controller {
     public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required|max:30',
+            'profile_url' => 'image|mimes:jpg,jpeg,png',
             'employee_position_id' => 'required|exists:employee_positions,id'
         ]);
+
+        if($request->hasFile('profile_url')) {
+            $filename = time() . '-' . $request->file('profile_url')->getClientOriginalName();
+            $image = $request->file('profile_url')->storeAs('employee', $filename);
+            $validated['profile_url'] = url('/') . '/storage/' . $image;
+        }
 
         $employee = Employee::create($validated);
 
@@ -53,10 +60,23 @@ class EmployeeController extends Controller {
     public function update(Request $request, string $id) {
         $validated = $request->validate([
             'name' => 'required|max:30',
+            'profile_url' => 'image|mimes:jpg,jpeg,png',
             'employee_position_id' => 'required|exists:employee_positions,id'
         ]);
 
-        Employee::where('id', $id)->update($validated);
+        $employee = Employee::find($id);
+
+        if($request->hasFile('profile_url')) {
+            $filename = time() . '-' . $request->file('profile_url')->getClientOriginalName();
+            $image = $request->file('profile_url')->storeAs('employee', $filename);
+
+            $prev_img = explode(url('/'), $employee->profile_url)[1];
+            unlink(public_path($prev_img));
+
+            $validated['profile_url'] = url('/') . '/storage/' . $image;
+        }
+
+        $employee->update($validated);
         $employee = Employee::with('employeePosition')->find($id);
 
         return response()->json(['data' => $employee,  'message' => 'Employee Edited']);

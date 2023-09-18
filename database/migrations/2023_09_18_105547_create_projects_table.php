@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('profile_url')->nullable();
-            $table->unsignedBigInteger('employee_position_id')->nullable();
+            $table->text('description')->max(500);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('image_url');
+            $table->integer('total_story_point');
+            $table->integer('done_story_point');
+            $table->smallInteger('status'); // 1: Proposal, 2: Ongoing, 3: Done
             $table->timestamps();
             $table->dateTime('deleted_at')->nullable();
-
-            $table->foreign('employee_position_id')->references('id')->on('employee_positions')->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('projects');
     }
 };

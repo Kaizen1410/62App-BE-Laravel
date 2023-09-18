@@ -14,6 +14,7 @@ class Employee extends Model
 
     protected $fillable = [
         'name',
+        'profile_url',
         'employee_position_id',
         'deleted_at'
     ];
@@ -36,5 +37,9 @@ class Employee extends Model
 
     public function approvedLeaves(): HasMany {
         return $this->hasMany(Leave::class);
+    }
+
+    public function projectEmployees(): HasMany {
+        return $this->hasMany(ProjectEmployee::class);
     }
 }
