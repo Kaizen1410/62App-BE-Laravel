@@ -18,7 +18,7 @@ class EmployeeController extends Controller {
         $employees = Employee::join('employee_positions', 'employee_positions.id', '=', 'employees.employee_position_id')
             ->where('employees.deleted_at', null)
             ->where('employees.name', 'like', '%' . $search . '%')
-            ->select(['employees.id', 'employees.name', 'employee_positions.name as employee_position', 'employees.updated_at', 'employees.created_at'])
+            ->select(['employees.id', 'employees.name', 'employees.profile_url', 'employee_positions.name as employee_position', 'employees.updated_at', 'employees.created_at'])
             ->orderBy($sort, $direction)
             ->paginate($per_page);
 

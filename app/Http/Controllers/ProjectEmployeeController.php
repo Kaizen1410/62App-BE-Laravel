@@ -6,7 +6,7 @@ use App\Models\project_employees;
 use App\Http\Requests\Storeproject_employeesRequest;
 use App\Http\Requests\Updateproject_employeesRequest;
 
-class ProjectEmployeesController extends Controller
+class ProjectEmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.

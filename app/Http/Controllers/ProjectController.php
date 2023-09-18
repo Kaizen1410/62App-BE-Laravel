@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\Request;
 
-class ProjectController extends Controller
-{
+class ProjectController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(Request $request) {
+        $search = $request->query('search');
+        $sort = $request->query('sort') ? $request->query('sort') : 'name';
+        $direction = $request->query('direction') ? $request->query('direction') : 'asc';
+        $per_page = $request->query('per_page') ? $request->query('per_page') : 10;
+
+        // Project::
     }
 
     /**

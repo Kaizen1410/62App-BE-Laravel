@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectEmployeeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
@@ -27,11 +29,19 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
+
     Route::resource('/employee-positions', EmployeePositionController::class);
+
     Route::resource('/roles', RoleController::class);
+
     Route::resource('/user-roles', UserRoleController::class);
+
     Route::get('/leaves/year/{year}', [LeaveController::class, 'leaves_year']);
     Route::get('/leaves/calendar', [LeaveController::class, 'calendar']);
     Route::post('/leaves/import', [LeaveController::class, 'import']);
     Route::resource('/leaves', LeaveController::class);
+
+    Route::resource('/projects', ProjectController::class);
+
+    Route::resource('/project-employees', ProjectEmployeeController::class);
 });
