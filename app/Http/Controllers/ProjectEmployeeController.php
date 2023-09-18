@@ -56,8 +56,6 @@ class ProjectEmployeeController extends Controller {
      */
     public function update(Request $request, string $id) {
         $validated = $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'project_id' => 'required|exists:projects,id',
             'start_date' => 'date',
             'end_date' => 'date',
             'status' => 'required|integer|min:1|max:2'
