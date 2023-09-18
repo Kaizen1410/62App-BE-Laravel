@@ -32,10 +32,10 @@ class ProjectController extends Controller {
             'description' => 'required|max:500',
             'start_date' => 'date',
             'end_date' => 'date',
-            'image_url' => 'required|image|mimes:jpg,jpeg,png',
-            'total_story_point' => 'required|numeric',
-            'done_story_point' => 'required|numeric',
-            'status' => 'required|numeric',
+            'image_url' => 'required|image|mimes:jpg,jpeg,png|size:5000',
+            'total_story_point' => 'required|integer',
+            'done_story_point' => 'required|integer',
+            'status' => 'required|integer|min:1|max:3',
         ]);
 
         $filename = time() . '-' . $request->file('image_url')->getClientOriginalName();
@@ -63,10 +63,10 @@ class ProjectController extends Controller {
             'description' => 'required|max:500',
             'start_date' => 'date',
             'end_date' => 'date',
-            'image_url' => 'image|mimes:jpg,jpeg,png',
-            'total_story_point' => 'required|numeric',
-            'done_story_point' => 'required|numeric',
-            'status' => 'required|numeric',
+            'image_url' => 'image|mimes:jpg,jpeg,png|size:5000',
+            'total_story_point' => 'required|integer',
+            'done_story_point' => 'required|integer',
+            'status' => 'required|integer|min:1|max:3',
         ]);
 
         if($request->hasFile('image_url')) {
@@ -91,8 +91,8 @@ class ProjectController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(string $id){
-        $deleted = Project::where('id', $id)->update(['deleted_at', date('Y-m-d H:i:s')]);
+        $deleted = Project::where('id', $id)->update(['deleted_at' => date('Y-m-d H:i:s')]);
 
-        response()->json(['deleted' => $deleted, 'message' => 'Project Deleted']);
+        return response()->json(['deleted' => $deleted, 'message' => 'Project Deleted']);
     }
 }
