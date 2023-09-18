@@ -66,7 +66,7 @@ class EmployeePositionController extends Controller {
         EmployeePosition::where('id', $id)->update($validated);
         $employeePosition = EmployeePosition::find($id);
 
-        return response()->json(['data' => $employeePosition,  'message' => 'Employee Position Edited']);
+        return response()->json(['data' => $employeePosition,  'message' => 'Employee Position Updated']);
     }
 
     /**

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\project_employees;
-use App\Http\Requests\Storeproject_employeesRequest;
-use App\Http\Requests\Updateproject_employeesRequest;
+use App\Models\ProjectEmployee;
+use Illuminate\Http\Request;
 
 class ProjectEmployeeController extends Controller
 {
@@ -17,17 +16,9 @@ class ProjectEmployeeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Storeproject_employeesRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +26,7 @@ class ProjectEmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(project_employees $project_employees)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(project_employees $project_employees)
+    public function show(ProjectEmployee $projectEmployee)
     {
         //
     }
@@ -51,7 +34,7 @@ class ProjectEmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Updateproject_employeesRequest $request, project_employees $project_employees)
+    public function update(Request $request, ProjectEmployee $projectEmployee)
     {
         //
     }
@@ -59,7 +42,7 @@ class ProjectEmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(project_employees $project_employees)
+    public function destroy(ProjectEmployee $projectEmployee)
     {
         //
     }

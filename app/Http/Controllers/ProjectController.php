@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller {
@@ -17,54 +15,84 @@ class ProjectController extends Controller {
         $direction = $request->query('direction') ? $request->query('direction') : 'asc';
         $per_page = $request->query('per_page') ? $request->query('per_page') : 10;
 
-        // Project::
-    }
+        $projects = Project::where('deleted_at', null)
+            ->where('name', 'like', '%' . $search . '%' )
+            ->orderBy($sort, $direction)
+            ->paginate($per_page);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($projects);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
-    {
-        //
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'required|max:500',
+            'start_date' => 'date',
+            'end_date' => 'date',
+            'image_url' => 'required|image|mimes:jpg,jpeg,png',
+            'total_story_point' => 'required|numeric',
+            'done_story_point' => 'required|numeric',
+            'status' => 'required|numeric',
+        ]);
+
+        $filename = time() . '-' . $request->file('image_url')->getClientOriginalName();
+        $image = $request->file('image_url')->storeAs('project', $filename);
+        $validated['image_url'] = url('/') . '/storage/' . $image;
+
+        $project = Project::create($validated);
+
+        return response()->json(['data' => $project,  'message' => 'Project Added']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
+    public function show(Project $project) {
+        return response()->json(['data' => $project]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
-    {
-        //
+    public function update(Request $request, Project $project) {
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'required|max:500',
+            'start_date' => 'date',
+            'end_date' => 'date',
+            'image_url' => 'image|mimes:jpg,jpeg,png',
+            'total_story_point' => 'required|numeric',
+            'done_story_point' => 'required|numeric',
+            'status' => 'required|numeric',
+        ]);
+
+        if($request->hasFile('image_url')) {
+            $filename = time() . '-' . $request->file('image_url')->getClientOriginalName();
+            $image = $request->file('image_url')->storeAs('project', $filename);
+
+            try {
+                $prev_img = explode(url('/'), $project->image_url)[1];
+                unlink(public_path($prev_img));
+            } catch (\Throwable $th) {
+            }
+
+            $validated['image_url'] = url('/') . '/storage/' . $image;
+        }
+
+        $project->update($validated);
+
+        return response()->json(['message' => 'Project Updated']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
-    {
-        //
+    public function destroy(string $id){
+        $deleted = Project::where('id', $id)->update(['deleted_at', date('Y-m-d H:i:s')]);
+
+        response()->json(['deleted' => $deleted, 'message' => 'Project Deleted']);
     }
 }

@@ -69,9 +69,12 @@ class EmployeeController extends Controller {
         if($request->hasFile('profile_url')) {
             $filename = time() . '-' . $request->file('profile_url')->getClientOriginalName();
             $image = $request->file('profile_url')->storeAs('employee', $filename);
-
-            $prev_img = explode(url('/'), $employee->profile_url)[1];
-            unlink(public_path($prev_img));
+            
+            try {
+                $prev_img = explode(url('/'), $employee->profile_url)[1];
+                unlink(public_path($prev_img));
+            } catch (\Throwable $th) {
+            }
 
             $validated['profile_url'] = url('/') . '/storage/' . $image;
         }
@@ -79,7 +82,7 @@ class EmployeeController extends Controller {
         $employee->update($validated);
         $employee = Employee::with('employeePosition')->find($id);
 
-        return response()->json(['data' => $employee,  'message' => 'Employee Edited']);
+        return response()->json(['data' => $employee,  'message' => 'Employee Updated']);
     }
 
     /**

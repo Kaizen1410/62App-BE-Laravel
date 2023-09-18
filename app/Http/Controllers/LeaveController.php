@@ -67,7 +67,7 @@ class LeaveController extends Controller {
         Leave::where('id', $id)->update($validated);
         $leave = Leave::with(['employee', 'approvedBy'])->find($id);
 
-        return response()->json(['data' => $leave,  'message' => 'Leave Edited']);
+        return response()->json(['data' => $leave,  'message' => 'Leave Updated']);
     }
 
     /**
