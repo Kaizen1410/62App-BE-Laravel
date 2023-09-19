@@ -61,8 +61,12 @@ class LeaveController extends Controller {
             'employee_id' => 'required|exists:employees,id',
             'date_leave' => 'required|date',
             'is_approved' => 'boolean',
-            $request->is_approved ? 'approved_by' : '' => 'required_if:is_approved,true|exists:employees,id',
+            'approved_by' => 'required_if:is_approved,true|exists:employees,id',
         ]);
+
+        if(!$validated['is_approved']) {
+            $validated['approved_by'] = null;
+        }
 
         Leave::where('id', $id)->update($validated);
         $leave = Leave::with(['employee', 'approvedBy'])->find($id);
