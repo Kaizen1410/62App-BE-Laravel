@@ -95,4 +95,18 @@ class ProjectController extends Controller {
 
         return response()->json(['deleted' => $deleted, 'message' => 'Project Deleted']);
     }
+
+    public function summary() {
+        $projects = Project::where('deleted_at', null)
+            ->with([
+                'projectEmployees' => fn ($q) => $q->with([
+                    'employee' => fn ($q) => $q->select('id', 'name')
+                ])->select('id', 'employee_id', 'project_id')
+            ])
+            ->select('id', 'name', 'start_date', 'end_date', 'image_url', 'total_story_point', 'done_story_point', 'status', 'updated_at')
+            ->orderBy('updated_at', 'desc')
+            ->limit(2)
+            ->get();
+        return response()->json(['data' => $projects]);
+    }
 }

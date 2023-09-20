@@ -36,11 +36,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('/user-roles', UserRoleController::class);
 
-    Route::get('/leaves/year/{year}', [LeaveController::class, 'leaves_year']);
+    Route::get('/leaves/summary/{year}', [LeaveController::class, 'summary']);
     Route::get('/leaves/calendar', [LeaveController::class, 'calendar']);
     Route::post('/leaves/import', [LeaveController::class, 'import']);
     Route::resource('/leaves', LeaveController::class);
 
+    Route::get('/projects/summary', [ProjectController::class, 'summary']);
     Route::resource('/projects', ProjectController::class);
 
     Route::resource('/project-employees', ProjectEmployeeController::class);

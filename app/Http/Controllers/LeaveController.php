@@ -83,7 +83,7 @@ class LeaveController extends Controller {
         return response()->json(['deleted' => $deleted,  'message' => 'Leave Deleted']);
     }
 
-    public function leaves_year(string $year) {
+    public function summary(string $year) {
         $data = Leave::whereYear('date_leave', $year)->selectRaw('month(date_leave) month, monthname(date_leave) monthname, count(*) data_count')
         ->groupBy('month', 'monthname')
         ->orderBy('month', 'asc')
