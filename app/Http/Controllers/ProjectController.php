@@ -105,7 +105,7 @@ class ProjectController extends Controller {
             ])
             ->select('id', 'name', 'start_date', 'end_date', 'image_url', 'total_story_point', 'done_story_point', 'status', 'updated_at')
             ->orderBy('updated_at', 'desc')
-            ->limit(2)
+            ->limit(10)
             ->get();
         return response()->json(['data' => $projects]);
     }
