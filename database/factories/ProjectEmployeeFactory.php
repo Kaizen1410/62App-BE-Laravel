@@ -21,8 +21,6 @@ class ProjectEmployeeFactory extends Factory
     {
         $employeeIds = Employee::all()->pluck('id');
         $projectIds = Project::all()->pluck('id');
-        // $employeeCount = Employee::all()->count();
-        // $projectCount = Project::all()->count();
 
         $projectEmployees = [];
 
@@ -36,11 +34,6 @@ class ProjectEmployeeFactory extends Factory
         $employeeIdProjectId = explode('-', $employeeIdProjectId);
         $employeeId = $employeeIdProjectId[0];
         $projectId = $employeeIdProjectId[1];
-        // for ($i = 1; $i <= $employeeCount; $i++) {
-        //     for ($j = 1; $j <= $projectCount; $j++) {
-        //         array_push($projectEmployees, $i . "-" . $j);
-        //     }
-        // }
 
         $start_date = fake()->dateTimeBetween('-3 years', '1 years');
         $end_date = fake()->dateTimeBetween('-2 years', '1 years');
