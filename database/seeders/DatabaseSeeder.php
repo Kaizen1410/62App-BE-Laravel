@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             RoleSeeder::class,
             UserRoleSeeder::class,
-            LeaveSeeder::class
+            LeaveSeeder::class,
+            ProjectSeeder::class
         ]);
 
         // \App\Models\User::factory()->create([
