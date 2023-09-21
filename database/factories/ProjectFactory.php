@@ -21,6 +21,12 @@ class ProjectFactory extends Factory
             'http://10.10.10.221:8000/download.jfif'
         ];
 
+        $start_date = fake()->dateTimeBetween('-3 years', '1 years');
+        $end_date = fake()->dateTimeBetween('-2 years', '1 years');
+        if($end_date < $start_date) {
+            $end_date = $start_date;
+        }
+
         $total_story_point = rand(80, 200);
         $done_story_point = rand(0, 200);
         if($done_story_point > $total_story_point) {
@@ -31,8 +37,8 @@ class ProjectFactory extends Factory
         return [
             'name' => fake()->sentence(2),
             'description' => fake()->sentence(20),
-            'start_date' => fake()->dateTimeBetween('-1 years', '1 years'),
-            'end_date' => fake()->dateTimeBetween('-1 years', '1 years'),
+            'start_date' => $start_date,
+            'end_date' => $end_date,
             'image_url' => fake()->randomElement($images),
             'total_story_point' => $total_story_point,
             'done_story_point' => $done_story_point,
