@@ -102,7 +102,7 @@ class ProjectController extends Controller {
         $projectQuery = Project::where('deleted_at', null)
             ->with([
                 'projectEmployees' => fn ($q) => $q->with([
-                    'employee' => fn ($q) => $q->select('id', 'name')
+                    'employee' => fn ($q) => $q->select('id', 'name', 'profile_url')
                 ])->select('id', 'employee_id', 'project_id')
             ]);
 
