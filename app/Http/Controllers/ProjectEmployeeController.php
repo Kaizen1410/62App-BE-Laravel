@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProjectEmployeeController extends Controller {
     /**
@@ -30,7 +31,11 @@ class ProjectEmployeeController extends Controller {
      */
     public function store(Request $request) {
         $validated = $request->validate([
-            'employee_id' => 'required|exists:employees,id',
+            'employee_id' => [
+                'required',
+                Rule::unique('project_employees')->where(fn ($q) => $q->where('employee_id', $request->employee_id)->where('project_id', $request->project_id)),
+                'exists:employees,id'
+            ],
             'project_id' => 'required|exists:projects,id',
             'start_date' => 'date',
             'end_date' => 'date',
