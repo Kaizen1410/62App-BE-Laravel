@@ -63,7 +63,7 @@ class ProjectEmployeeController extends Controller {
         $validated = $request->validate([
             'employee_id' => [
                 'required',
-                Rule::unique('project_employees')->where(fn ($q) => $q->where('employee_id', $request->employee_id)->where('project_id', $request->project_id)),
+                Rule::unique('project_employees')->where(fn ($q) => $q->where('employee_id', $request->employee_id)->where('project_id', $request->project_id))->ignore($id),
                 'exists:employees,id'
             ],
             'project_id' => 'required|exists:projects,id',
@@ -71,8 +71,6 @@ class ProjectEmployeeController extends Controller {
             'end_date' => 'date',
             'status' => 'required|integer|min:1|max:2'
         ]);
-
-        return response()->json(['data' => $validated, 'message' => 'Project Employee Updated']);
 
         ProjectEmployee::where('id', $id)->update($validated);
         $projectEmployee = ProjectEmployee::find($id);
