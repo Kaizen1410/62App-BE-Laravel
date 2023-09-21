@@ -21,15 +21,22 @@ class ProjectFactory extends Factory
             'http://10.10.10.221:8000/download.jfif'
         ];
 
+        $total_story_point = rand(80, 200);
+        $done_story_point = rand(0, 200);
+        if($done_story_point > $total_story_point) {
+            $done_story_point = $total_story_point;
+        }
+        $status = $done_story_point == $total_story_point ? 3 : rand(1, 2);
+
         return [
             'name' => fake()->sentence(2),
             'description' => fake()->sentence(20),
             'start_date' => fake()->dateTimeBetween('-1 years', '1 years'),
             'end_date' => fake()->dateTimeBetween('-1 years', '1 years'),
             'image_url' => fake()->randomElement($images),
-            'total_story_point' => rand(80, 200),
-            'done_story_point' => rand(0, 80),
-            'status' => rand(1, 3),
+            'total_story_point' => $total_story_point,
+            'done_story_point' => $done_story_point,
+            'status' => $status,
         ];
     }
 }
