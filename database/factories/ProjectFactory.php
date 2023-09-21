@@ -17,8 +17,8 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         $images = [
-            'http://10.10.10.221:8000/Aesthetic Anime Wallpapers - WallpaperSafari.jfif',
-            'http://10.10.10.221:8000/download.jfif'
+            'http://localhost:8000/Aesthetic Anime Wallpapers - WallpaperSafari.jfif',
+            'http://localhost:8000/download.jfif'
         ];
 
         $start_date = fake()->dateTimeBetween('-3 years', '1 years');
