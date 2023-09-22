@@ -108,8 +108,8 @@ class ProjectController extends Controller {
 
         if($year) {
             $projectQuery
-                ->whereYear('start_date', $year)
-                ->orWhereYear('end_date', $year);
+                ->whereYear('start_date', '<=', $year)
+                ->WhereYear('end_date', '>=', $year);
         }
 
         $projects = $projectQuery
