@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentNotification extends Model {
     use HasFactory;
 
-    protected $guard = [
+    protected $guarded = [
 
     ];
 }
