@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Midtrans\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        Config::$serverKey = env('SERVER_KEY');
+        Config::$isProduction = env('MIDTRANS_PRODUCTION', false);
+        Config::$is3ds = true;
     }
 
     /**

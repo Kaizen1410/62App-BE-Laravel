@@ -48,4 +48,7 @@ Route::middleware(['auth:admin-api'])->group(function () {
     Route::resource('/project-employees', ProjectEmployeeController::class);
 });
 
-Route::post('/payment/notif', [PaymentController::class, 'notif']);
+Route::prefix('/payment')->group(function () {
+    Route::post('/checkout', [PaymentController::class, 'checkout']);
+    Route::post('/notif', [PaymentController::class, 'notif']);
+});

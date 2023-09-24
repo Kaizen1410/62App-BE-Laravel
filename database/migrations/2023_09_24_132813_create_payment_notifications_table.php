@@ -13,25 +13,28 @@ return new class extends Migration
     {
         Schema::create('payment_notifications', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('transaction_time');
-            $table->string('transaction_status');
-            $table->string('transaction_id');
-            $table->string('status_message');
-            $table->string('status_code');
-            $table->string('signature_key');
-            $table->string('payment_type');
-            $table->string('order_id');
-            $table->string('merchant_id');
-            $table->string('masked_card');
-            $table->string('gross_amount');
-            $table->string('fraud_status');
-            $table->string('eci');
-            $table->string('currency');
-            $table->string('channel_response_message');
-            $table->string('channel_response_code');
-            $table->string('card_type');
-            $table->string('bank');
-            $table->string('approval_code');
+            $table->dateTime('transaction_time')->nullable();
+            $table->string('transaction_status')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('three_ds_version')->nullable();
+            $table->string('status_message')->nullable();
+            $table->string('status_code')->nullable();
+            $table->string('signature_key')->nullable();
+            $table->dateTime('settlement_time')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('order_id')->nullable();
+            $table->string('merchant_id')->nullable();
+            $table->string('masked_card')->nullable();
+            $table->string('gross_amount')->nullable();
+            $table->string('fraud_status')->nullable();
+            $table->dateTime('expiry_time')->nullable();
+            $table->string('eci')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('channel_response_message')->nullable();
+            $table->string('channel_response_code')->nullable();
+            $table->string('card_type')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('approval_code')->nullable();
             $table->timestamps();
         });
     }
