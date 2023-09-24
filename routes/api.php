@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectEmployeeController;
 use App\Http\Controllers\RoleController;
@@ -46,3 +47,5 @@ Route::middleware(['auth:admin-api'])->group(function () {
 
     Route::resource('/project-employees', ProjectEmployeeController::class);
 });
+
+Route::post('/payment/notif', [PaymentController::class, 'notif']);
