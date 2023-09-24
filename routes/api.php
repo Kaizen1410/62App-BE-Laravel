@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
-    Route::middleware('auth:sanctum')->get('/logout', [AuthController::class, 'logout']);
-    Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'user']);
+    Route::middleware('auth:admin-api')->get('/logout', [AuthController::class, 'logout']);
+    Route::middleware('auth:admin-api')->get('/user', [AuthController::class, 'user']);
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:admin-api'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
 
     Route::resource('/employee-positions', EmployeePositionController::class);
