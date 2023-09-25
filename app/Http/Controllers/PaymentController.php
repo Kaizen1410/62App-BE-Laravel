@@ -19,7 +19,7 @@ class PaymentController extends Controller {
             'transaction_status' => 'required',
             'payment_type' => 'required',
             'order_id' => 'required',
-            'fraud' => 'required',
+            'fraud_status' => 'required',
         ]);
 
         PaymentNotification::create($validated);
