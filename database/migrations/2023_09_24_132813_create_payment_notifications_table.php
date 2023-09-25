@@ -15,26 +15,9 @@ return new class extends Migration
             $table->id();
             $table->dateTime('transaction_time')->nullable();
             $table->string('transaction_status')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->string('three_ds_version')->nullable();
-            $table->string('status_message')->nullable();
-            $table->string('status_code')->nullable();
-            $table->string('signature_key')->nullable();
-            $table->dateTime('settlement_time')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('order_id')->nullable();
-            $table->string('merchant_id')->nullable();
-            $table->string('masked_card')->nullable();
-            $table->string('gross_amount')->nullable();
             $table->string('fraud_status')->nullable();
-            $table->dateTime('expiry_time')->nullable();
-            $table->string('eci')->nullable();
-            $table->string('currency')->nullable();
-            $table->string('channel_response_message')->nullable();
-            $table->string('channel_response_code')->nullable();
-            $table->string('card_type')->nullable();
-            $table->string('bank')->nullable();
-            $table->string('approval_code')->nullable();
             $table->timestamps();
         });
     }

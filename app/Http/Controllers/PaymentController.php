@@ -14,7 +14,15 @@ class PaymentController extends Controller {
     }
 
     public function notif(Request $request) {
-        PaymentNotification::create($request->all());
-        return response()->json(['request' => $request->all()], 201);
+        $validated = $request->validate([
+            'transaction_time' => 'required',
+            'transaction_status' => 'required',
+            'payment_type' => 'required',
+            'order_id' => 'required',
+            'fraud' => 'required',
+        ]);
+
+        PaymentNotification::create($validated);
+        return response()->json(['message' => 'Notification accepted'], 201);
     }
 }
