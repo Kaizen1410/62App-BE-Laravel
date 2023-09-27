@@ -8,7 +8,19 @@ use Midtrans\Snap;
 
 class PaymentController extends Controller {
     public function checkout(Request $request) {
-        $snap = Snap::createTransaction($request->all());
+        $validated = $request->validate([
+            'transaction_details.order_id' => 'required|unique:payment_notifications,order_id',
+            'transaction_details.gross_amount' => 'required|numeric',
+            'item_details.*.id' => 'required',
+            'item_details.*.price' => 'required|numeric',
+            'item_details.*.quantity' => 'required|numeric',
+            'item_details.*.name' => 'required',
+            'customer_details.first_name' => 'required',
+            'customer_details.last_name' => 'required',
+            'customer_details.email' => 'required|email',
+            'customer_details.phone' => 'required|numeric',
+        ]);
+        $snap = Snap::createTransaction($validated);
 
         return response()->json($snap);
     }
