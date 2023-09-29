@@ -49,6 +49,7 @@ Route::middleware(['auth:admin-api'])->group(function () {
 });
 
 Route::prefix('/payment')->group(function () {
-    Route::post('/checkout', [PaymentController::class, 'checkout']);
+    Route::post('/snap', [PaymentController::class, 'snap']);
+    Route::post('/core', [PaymentController::class, 'core']);
     Route::post('/notif', [PaymentController::class, 'notif']);
 });

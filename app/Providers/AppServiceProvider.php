@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         Config::$serverKey = env('SERVER_KEY');
+        Config::$clientKey = env('CLIENT_KEY');
         Config::$isProduction = env('MIDTRANS_PRODUCTION', false);
         Config::$is3ds = true;
     }
