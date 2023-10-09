@@ -32,29 +32,7 @@ Start the server
 
 
 ## API Reference
-
-#### Login
-
-```
-  POST /api/auth/login
-```
-
-| Body | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `email`      | `string` | **Required** |
-| `password`      | `string` | **Required** |
-
-#### Logout
-
-```
-  GET /api/auth/logout
-```
-
-#### Get Current Login User
-
-```
-  GET /api/auth/user
-```
+You can see all endpoint [here](https://documenter.getpostman.com/view/24844734/2s9YJgULxB)
 
 
 ## Authors
